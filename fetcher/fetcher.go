@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/pkg/errors"
 	"golang.org/x/net/html/charset"
@@ -13,10 +14,20 @@ import (
 	"golang.org/x/text/transform"
 )
 
+var rateLimiter = time.Tick(8 * time.Millisecond)
+
 func Fetch(url string) ([]byte, error) {
-	resp, err := http.Get(url)
+	<-rateLimiter
+	// resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, errors.WithMessage(err, "http.Get error")
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, errors.WithMessage(err, "http.Get client error")
 	}
 	defer resp.Body.Close()
 

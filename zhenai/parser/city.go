@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-const cityRe = `<a href=("http://album.zhenai.com/u/[0-9a-z]+)"[^>]*>([^<]+)</a>`
+const cityRe = `<a href="(http://album.zhenai.com/u/[0-9a-z^:]+)"[^>]*>([^<]+)</a>`
 
 // 截取城市列表及链接
 func ParserCity(contents []byte) engine.ParseResult {
