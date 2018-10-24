@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>bige小红娘</title>
+	</head>
+	<body>
+		<div id="demo">
+			<div align="middle">
+				<input type="text" maxlength="100" style="width: 500px">
+				<button type="button" name="button">搜索</button>
+			</div>
+			<h2>共为您找到相关结果为{{.Hits}}个,显示从{{.Start}}起共{{len .Items}}个。</h2>
+			<div class="table-responsive-vertical shadow-z-1">
+				<table id="table" class="table table-striped table-hover table-mc-indigo">
+						<td>姓名</td>
+						<td>性别</td>
+						<td>年龄</td>
+						<td>生肖</td>
+						<td>身高</td>
+						<td>体重</td>
+						<td>体型</td>
+						<td>收入</td>
+						<td>婚况</td>
+						<td>学历</td>
+						<td>职业</td>
+						<td>工作地</td>
+						<td>籍贯</td>
+						<td>星座</td>
+						<td>住房</td>
+						<td>购车</td>
+						<td>独白</td>
+					<tbody>
+						{{range .Items}}
+						<tr>
+							<td id="name"><a href="{{.Url}}" target="_blank">{{.Payload.Name}}</a></td>
+							{{with .Payload}}
+							<td>{{.Gender}}</td>
+							<td>{{.Age}}</td>
+							<td>{{.ShengXiao}}</td>
+							<td>{{.Height}}</td>
+							<td>{{.Weight}}</td>
+							<td>{{.BodyType}}</td>
+							<td>{{.Income}}</td>
+							<td>{{.Marriage}}</td>
+							<td>{{.Education}}</td>
+							<td>{{.Occupation}}</td>
+							<td>{{.WorkPlace}}</td>
+							<td>{{.Hukou}}</td>
+							<td>{{.Xingzuo}}</td>
+							<td>{{.House}}</td>
+							<td>{{.Car}}</td>
+							<td>{{.Monolog}}</td>
+							{{end}}
+						</tr>
+						{{else}}
+						<div>没有找到相关用户</div>
+						{{end}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-compat/3.0.0-alpha1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<style src="css/template.css">
+
+		</style>
+	</body>
+</html>
